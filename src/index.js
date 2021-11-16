@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 function Square(props) {
-  const [value, setValue] = useState(null);
-
   return (
     <button
       className="square"
@@ -16,11 +14,13 @@ function Square(props) {
 
 function Board() {
   const [squares, setSquares] = useState(Array(9).fill(null));
+  const [xIsNext, setxIsNext] = useState(true);
 
   function handleClick(i) {
     const newSquares = squares.slice();
-    newSquares[i] = 'X';
+    newSquares[i] = xIsNext ? 'X' : 'O';
     setSquares(newSquares);
+    setxIsNext(!xIsNext);
   }
 
   function renderSquare(i) {
@@ -32,7 +32,7 @@ function Board() {
     );
   }
 
-  const status = 'Next player: X';
+  const status = 'Next player: ' + (xIsNext ? 'X' : 'O');
 
   return (
     <div>
